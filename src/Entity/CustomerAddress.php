@@ -181,4 +181,10 @@ class CustomerAddress
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->address . ', ' . $this->city . ', ' . $this->postalcode . ', ' . $this->country;
+    }
+
 }

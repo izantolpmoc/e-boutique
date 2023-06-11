@@ -16,7 +16,7 @@
             <div class="{% if category.id == selectedCategory %}shadow-lg px-2 bg-body-tertiary rounded{% endif %} me-3">
                 {% set medium = category.media.first %}
                 <a href="{{ path('app_product_customer_view', { 'category': category.id }) }}">
-                    <img src="{{ asset(medium.path) }}" alt="{{ category.name }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">                </a>
+                    <img src="{{ asset(medium.path) }}" alt="{{ category.name }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;"></a>
                 <div class="text-center">{{ category.name }}</div>
             </div>
         {% endfor %}
@@ -27,15 +27,16 @@
 
     <div class="row">
         {% for product in products %}
-            <div class="col-sm-4">
+            <div class="col-sm-4 mb-3">
                 <div class="card">
+                    <img src=" {{ product.media.first.path }}" class="card-img-top" alt="{{ product.media.first.alt }}" height="300" style="object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text">{{ product.description }}</p>
                         <p class="card-text">Price: {{ product.priceExcludingVAT }} (Excl. VAT)</p>
                         <p class="card-text">Available: {{ product.available ? 'Yes' : 'No' }}</p>
-                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show Details</a>
-                        <a href="{{ path('add_to_cart', {id: product.id, redirectRoute: 'app_product_customer_view', category: selectedCategory}) }}" class="btn btn-success">Add to Cart</a>
+                        {# <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show Details</a> #}
+                        <a href="{{ path('add_to_cart', {id: product.id, redirectRoute: 'app_product_customer_view', category: selectedCategory}) }}" class="btn btn-success {% if product.available == false %}disabled{% endif %}">Add to Cart</a>
                     </div>
                 </div>
             </div>

@@ -44,8 +44,8 @@ class OrderController extends AbstractController
         $order->setValid(true);
         $orderRepository->save($order, true);
 
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        $cartService->reset();
+
+        return $this->redirectToRoute('app_home');
     }
 }

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Your Profile</h4>
+                    </div>
+                    {% if app.user %}
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Email</strong></label>
+                                <p class="form-control-plaintext">{{ app.user.email }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Name</strong></label>
+                                <p class="form-control-plaintext">{{ app.user.name }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Firstname</strong></label>
+                                <p class="form-control-plaintext">{{ app.user.firstname }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Phone</strong></label>
+                                <p class="form-control-plaintext">{{ app.user.phone }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><strong>Address</strong></label>
+                                {% if app.user.address %}
+                                    <p class="form-control-plaintext">
+                                        {{ app.user.address.getAddress() }} <br>
+                                        {{ app.user.address.getCity() }} <br>
+                                        {{ app.user.address.getPostalcode() }} <br>
+                                        {{ app.user.address.getCountry() }}
+                                    </p>
+                                {% else %}
+                                    <p class="form-control-plaintext text-muted">No address provided</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ path('app_user_edit', {'id': app.user.id, 'route': 'app_user_account'}) }}" class="btn btn-primary">Edit Profile</a>
+                        </div>
+                    {% else %}
+                        <div><a href="{{path('app_login')}}">Login</a> to access your account details.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

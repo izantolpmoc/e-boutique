@@ -72,5 +72,11 @@ class CartService
 
         return $cartDetail;
     }
+
+    public function reset()
+    {
+        $this->requestStack->getSession()->remove('cart');
+    }
+
 }
 

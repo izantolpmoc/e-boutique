@@ -26,26 +26,31 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/product">Products</a>
-                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown
+                      Explore
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/category">Categories</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <a class="dropdown-item" href="{{path('app_product_customer_view')}}">Products</a>
                       <li><hr class="dropdown-divider"></li>
                       {% if app.user %}
+                          {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <li><a class="dropdown-item" href="{{path('app_register')}}">Back Office</a></li>
+                          {% endif %}
                         <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
                       {% else %}
+                        <li><a class="dropdown-item" href="{{path('app_register')}}">Register</a></li>
                         <li><a href="{{path('app_login')}}" class="dropdown-item">Login</a></li>
                       {% endif %}
                     </ul>
                   </li>
+                  {% if app.user %}
                   <li class="nav-item">
-                    <a class="nav-link" href="#">My Account</a>
+                    <a class="nav-link" href="{{path('app_user_account')}}">My Account</a>
+                  </li>
+                  {% endif %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{path('cart')}}">Cart 🛒</a>
                   </li>
                 </ul>
                 {# <form class="d-flex" role="search">
