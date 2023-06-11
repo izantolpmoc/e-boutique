@@ -30,7 +30,9 @@
             <div class="card-footer text-muted d-flex">
                 {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
                     <a href="{{ path('app_admin')}}" class="btn mb-3 me-3"><< Back to Dashboard</a>
-                    <a class="btn mb-3 me-3" href="{{ path('app_order_validate', {id: order.id}) }}">Validate order</a>
+                    {% if not order.isValid %}
+                        <a class="btn mb-3 me-3" href="{{ path('app_order_validate', {id: order.id}) }}">Validate order</a>
+                    {% endif %}
                 {% else %}
                     <a href="{{ path('app_user_account') }}" class="btn btn-dark me-3">Back to Orders</a>
                 {% endif %}

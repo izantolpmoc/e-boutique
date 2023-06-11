@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CommandLine;
 use App\Entity\Order;
+use App\Entity\User;
 use App\Repository\OrderRepository;
 use App\Service\Cart\CartService;
 use DateTime;
@@ -54,6 +55,18 @@ class OrderController extends AbstractController
     #[Route('/{id}/{route}', name: 'app_order_delete', methods: ['POST'], defaults:['route' => 'app_order_index'])]
     public function delete($route, Request $request, Order $order, OrderRepository $orderRepository): Response
     {
+        $loggedUser = $this->getUser();
+
+        if ($loggedUser instanceof User) {
+            // check if the logged user has the same id as the user who placed the order or has the ROLE_ADMIN
+            if ($loggedUser->getId() !== $order->getUser()->getId() && !$this->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        else {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
             $orderRepository->remove($order, true);
         }

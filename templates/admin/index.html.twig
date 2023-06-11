@@ -4,11 +4,61 @@
 
 {% block body %}
     <div class="dashboard-container">
-        <h1>Dashboard</h1>
+        <h1 class="text-center my-4" style="font-family: 'Ringbearer', cursive; color: #3C673D;">Middle Earth Dashboard</h1>
 
-        <a href="{{path('app_category_index')}}">Categories</a>
-        <a href="{{path('app_product_index')}}">Products</a>
-        <a href="{{path('app_media_index')}}">Medias</a>
-        <a href="{{path('app_order_index')}}">Orders</a>
-        <a href="{{path('app_user_index')}}">Users</a>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-2 m-3">
+                    <a href="{{path('app_category_index')}}" class="text-decoration-none">
+                        <div class="card bg-light text-dark h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #8B4513;">Categories</h5>
+                                <p class="card-text">Manage categories here</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2 m-3">
+                    <a href="{{path('app_product_index')}}" class="text-decoration-none">
+                        <div class="card bg-light text-dark h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #8B4513;">Products</h5>
+                                <p class="card-text">Manage products here</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2 m-3">
+                    <a href="{{path('app_media_index')}}" class="text-decoration-none">
+                        <div class="card bg-light text-dark h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #8B4513;">Medias</h5>
+                                <p class="card-text">Manage media files here</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2 m-3">
+                    <a href="{{path('app_order_index')}}" class="text-decoration-none">
+                        <div class="card bg-light text-dark h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #8B4513;">Orders</h5>
+                                <p class="card-text">Manage orders here</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2 m-3">
+                    <a href="{{path('app_user_index')}}" class="text-decoration-none">
+                        <div class="card bg-light text-dark h-100">
+                            <div class="card-body text-center">
+                                <h5 class="card-title" style="color: #8B4513;">Users</h5>
+                                <p class="card-text">Manage users here</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

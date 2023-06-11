@@ -27,8 +27,8 @@
                 <td>{{ product.priceExcludingVAT }}</td>
                 <td>{{ product.available ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
+                    <a class="btn btn-success" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <a class="btn" href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}

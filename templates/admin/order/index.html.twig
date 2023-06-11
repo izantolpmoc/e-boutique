@@ -31,7 +31,7 @@
                 <td>{{ order.getCommandLine|length}}</td>
                 <td>{{ order.getTotal|number_format(2) }}</td>
                 <td>
-                    <a href="{{ path('app_order_show', {'id': order.id}) }}">show</a>
+                    <a class="btn" href="{{ path('app_order_show', {'id': order.id}) }}">show</a>
                 </td>
             </tr>
         {% else %}

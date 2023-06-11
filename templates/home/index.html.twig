@@ -1,29 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Middle-earth Treasures{% endblock %}
 
 {% block body %}
 
 <div class="landing-page">
-    <div class="hero-section">
-        <img src="{{ asset('build/images/hobbit-house.jpg') }}" alt="Background Image">
-    </div>
     <div class="text-section">
         <h1>Welcome to Middle-earth Treasures</h1>
         <p>Discover the magic of Middle-earth through our exquisite collection</p>
-        <a href="{{ path('app_product_customer_view') }}" class="btn btn-primary">Start Your Journey</a>
+        <a href="{{ path('app_product_customer_view') }}" class="btn btn-primary" style="padding: 1rem 2.5rem; font-size: 1.2rem;">Start Your Journey</a>
     </div>
-    {# <div class="featured-products">
-        <h2>Featured Products</h2>
-        <!-- Add code here to display featured products -->
-    </div>
-    <div class="newsletter-section">
-        <h3>Join Our Fellowship</h3>
-        <p>Sign up for our newsletter to receive updates, exclusive offers, and more</p>
-        <form action="/newsletter" method="POST">
-            <!-- Add code here for the newsletter signup form -->
-        </form>
-    </div> #}
 </div>
 
 {% endblock %}
