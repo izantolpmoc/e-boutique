@@ -1,0 +1,79 @@
+.landing-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-section {
+    height: calc(33.33vh);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-section img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.text-section {
+    background-color: #ffffff;
+    padding: 3rem;
+    color: #000000;
+}
+
+.text-section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.text-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    /* padding: 1rem 2.5rem; */
+    background-color: #8c352b;
+    color: #ffffff;
+    /* font-size: 1.2rem; */
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #b34e42;
+}
+
+.featured-products {
+    margin-top: 4rem;
+    color: #ffffff;
+}
+
+.featured-products h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.newsletter-section {
+    margin-top: 2rem;
+    color: #ffffff;
+}
+
+.newsletter-section h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}

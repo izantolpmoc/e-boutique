@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Armory of Middle-Earth{% endblock %}
+
+{% block body %}
+    <h1>Armory of Middle-Earth</h1>
+
+    <div class="d-flex mb-3">
+        <div class="{% if selectedCategory == null %}shadow-lg px-2 bg-body-tertiary rounded{% endif %} me-3">
+            <a href="{{ path('app_product_customer_view') }}">
+                <img src="https://cdn.shopify.com/s/files/1/0255/0487/4599/products/23220204M-03Tan_D_1d3eb05c-eda3-4368-a99d-7599b0ce1bb5_1024x1024.jpg?v=1666193825" alt="map of middle earth" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+            </a>
+            <div class="text-center">All categories</div>
+        </div>
+        {% for category in categories %}
+            <div class="{% if category.id == selectedCategory %}shadow-lg px-2 bg-body-tertiary rounded{% endif %} me-3">
+                {% set medium = category.media.first %}
+                <a href="{{ path('app_product_customer_view', { 'category': category.id }) }}">
+                    <img src="{{ asset(medium.path) }}" alt="{{ category.name }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">                </a>
+                <div class="text-center">{{ category.name }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">Price: {{ product.priceExcludingVAT }} (Excl. VAT)</p>
+                        <p class="card-text">Available: {{ product.available ? 'Yes' : 'No' }}</p>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-primary">Show Details</a>
+                        <a href="{{ path('add_to_cart', {id: product.id, redirectRoute: 'app_product_customer_view', category: selectedCategory}) }}" class="btn btn-success">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-sm-12">
+                <p>No products found.</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

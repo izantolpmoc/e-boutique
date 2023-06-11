@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{% if app.user is null %}
+<div class="alert alert-warning" role="alert">
+    You need to <a href="{{ path('app_login') }}">login</a> to validate your cart and place an order.
+</div>
+{% endif %}
+
+<h2 class="m-4 text-center" style="color: goldenrod; font-family: 'Ringbearer', fantasy;">Your Fellowship's Supplies</h2>
+
+{% if cart|length > 0 %}
+    <div class="table-responsive m-4">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Price</th>
+                <th scope="col">Decrease</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Increase</th>
+                <th scope="col">SubTotal</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set total = 0 %}
+            {% for key, item in cart %}
+                <tr>
+                    <th scope="row">{{key+1}}</th>
+                    <th>{{item.product.name}}</th>
+                    <th>{{item.product.priceExcludingVAT}}€</th>
+                    <th><a href="{{ path('remove_from_cart',{id:item.product.id}) }}" class="btn btn-outline-secondary btn-sm">-</a></th>
+                    <th>{{ item.quantity }}</th>
+                    <td><a href="{{ path('add_to_cart',{id:item.product.id}) }}" class="btn btn-outline-secondary btn-sm">+</a></td>
+                    <td>{{ item.product.priceExcludingVAT * item.quantity }}€</td>
+                    <td>
+                        <a href="{{ path('delete_from_cart', {id:item.product.id }) }}" onclick="return confirm('Do you really wish to cast this item into Mount Doom?')" class="btn btn-outline-danger btn-sm">Cast into Mont Doom</a>
+                    </td>
+                </tr>
+                {% set total = total + (item.product.priceExcludingVAT * item.quantity) %}
+            {% endfor %}
+            </tbody>
+            <tfoot class="thead-dark">
+                <tr>
+                    <td colspan="6">Total</td>
+                    <td>{{ total }}€</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {% if app.user %}
+        <a href="{{path('new_order') }}" class="btn btn-outline-warning">Validate the Cart</a>
+    {% endif %}
+{% else %}
+    <p class="text-center">Your cart is empty!</p>
+{% endif %}
+
+{% endblock %}
+
+{% block title %}
+    Fellowship's Supplies
+{% endblock %}

@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    
+    <h3>Medias</h3>
+    <ul class="media">
+        {% for media in form.media %}
+            <li>{{ form_row(media.path) }}</li>
+            <li>{{ form_row(media.alt) }}</li>
+            <li>{{ form_row(media.type) }}</li>
+        {% endfor %}
+    </ul>
+    
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
