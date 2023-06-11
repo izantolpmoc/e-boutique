@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card shadow border-0">
+            <div class="card-header bg-dark text-white">
+                <h2>Order Details</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Order Number: {{ order.number }}</h4>
+                <p class="card-text">Date Placed: {{ order.date|date('Y-m-d') }}</p>
+                <p class="card-text">Order Valid: {{ order.valid ? 'Yes' : 'No' }}</p>
+                <p class="card-text">User: {{ order.user.name }} {{order.user.firstname}}</p>
+                <p class="card-text">Total: {{ order.getTotal|number_format(2) }} </p>
+
+                <h5 class="mt-4">Order Items:</h5>
+                {% for commandLine in order.getCommandLine %}
+                    <div class="d-flex mt-3">
+                        <img src="{{commandLine.product.media.first.path}}" alt="{{commandLine.product.media.first.alt}}" width="200" style="object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ commandLine.product.name }}</h5>
+                            <p class="card-text">Quantity: {{ commandLine.quantity }}</p>
+                            <p class="card-text">Price: {{ commandLine.product.priceExcludingVAT|number_format(2) }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="card-footer text-muted d-flex">
+                {% if app.user and 'ROLE_ADMIN' in app.user.roles %}
+                    <a href="{{ path('app_admin')}}" class="btn mb-3 me-3"><< Back to Dashboard</a>
+                    <a class="btn mb-3 me-3" href="{{ path('app_order_validate', {id: order.id}) }}">Validate order</a>
+                {% else %}
+                    <a href="{{ path('app_user_account') }}" class="btn btn-dark me-3">Back to Orders</a>
+                {% endif %}
+                {{ include('order/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

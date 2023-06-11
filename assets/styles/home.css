@@ -1,5 +1,13 @@
+
+body {
+    min-height: 100dvh;
+    background: url(/assets/images/bilbo.png);
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: auto 500px;
+}
+
 .landing-page {
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

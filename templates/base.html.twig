@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{% block title %}eShop{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
@@ -17,7 +18,7 @@
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-              <a class="navbar-brand" href="/"><img src="{{ asset('build/images/icons8-hills-48.png') }}" alt="logo"></a>
+              <a class="navbar-brand" href="/"><img src="{{ asset('build/images/logo.png') }}" alt="logo" width="40"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -35,7 +36,7 @@
                       <li><hr class="dropdown-divider"></li>
                       {% if app.user %}
                           {% if 'ROLE_ADMIN' in app.user.roles %}
-                            <li><a class="dropdown-item" href="{{path('app_register')}}">Back Office</a></li>
+                            <li><a class="dropdown-item" href="{{path('app_admin')}}">Back Office</a></li>
                           {% endif %}
                         <li><a class="dropdown-item" href="{{path('app_logout')}}">Logout</a></li>
                       {% else %}
@@ -53,10 +54,6 @@
                     <a class="nav-link" href="{{path('cart')}}">Cart 🛒</a>
                   </li>
                 </ul>
-                {# <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> #}
               </div>
             </div>
           </nav>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use App\Service\Cart\CartService;
 use Doctrine\ORM\EntityManager;
@@ -17,53 +18,30 @@ use Symfony\Component\Security\Core\Security;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
-
     #[Route('/account', name: 'app_user_account', methods: ['GET'])]
-    public function account(Security $security, UserRepository $userRepository): Response
+    public function account(OrderRepository $orderRepository): Response
     {
         return $this->render('user/account.html.twig');
     }
 
-    #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository): Response
-    {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user, true);
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
 
     #[Route('/{id}/edit/{route}', name: 'app_user_edit', methods: ['GET', 'POST'], defaults:['route'=>'app_user_index'])]
     public function edit($route, Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'is_admin' => $this->isGranted('ROLE_ADMIN'),
+        ]);
         $form->handleRequest($request);
 
+        $loggedUser = $this->getUser();
+        if ($loggedUser instanceof User) {
+            // check if the logged user has the same id as the $user being edited or has the ROLE_ADMIN
+            if ($loggedUser->getId() !== $user->getId() && !$this->isGranted('ROLE_ADMIN')) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        else throw $this->createAccessDeniedException();
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $currentUser = $userRepository->find($user->getId());
             $user->setPassword($currentUser->getPassword());

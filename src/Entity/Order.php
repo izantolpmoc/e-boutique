@@ -119,4 +119,16 @@ class Order
 
         return $this;
     }
+
+    public function getTotal(): float
+    {
+        $total = 0.0;
+
+        foreach ($this->getCommandLine() as $commandLine) {
+            $total += $commandLine->getProduct()->getPriceExcludingVAT() * $commandLine->getQuantity();
+        }
+
+        return $total;
+    }
+
 }

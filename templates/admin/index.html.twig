@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to Middle Earth Admin Panel{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+
+        <a href="{{path('app_category_index')}}">Categories</a>
+        <a href="{{path('app_product_index')}}">Products</a>
+        <a href="{{path('app_media_index')}}">Medias</a>
+        <a href="{{path('app_order_index')}}">Orders</a>
+        <a href="{{path('app_user_index')}}">Users</a>
+{% endblock %}
